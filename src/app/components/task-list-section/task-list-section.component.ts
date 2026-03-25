@@ -3,19 +3,21 @@ import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskService } from '../../Services/task.service';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ITask } from '../../Interfaces/task.interface';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { TaskStatus } from '../../types/task.status';
 import { TaskStatusEnum } from '../../enums/task.status.enum';
 
 @Component({
   selector: 'app-task-list-section',
-  imports: [TaskCardComponent, CdkDropList, CdkDrag, AsyncPipe],
+  imports: [TaskCardComponent, CdkDropList, CdkDrag, AsyncPipe, JsonPipe],
   templateUrl: './task-list-section.component.html',
   styleUrl: './task-list-section.component.css'
 })
 export class TaskListSectionComponent {
 
   public readonly _taskService = inject(TaskService);
+todoTask: unknown;
+doingTask: unknown;
 
   onCardDrop(event: CdkDragDrop<ITask[]>) {
     this.moveCardToColumn(event);
@@ -44,12 +46,11 @@ export class TaskListSectionComponent {
         throw new Error('Coluna não identificada');
     }
 
-    
+    this._taskService.updateTaskStatus(taskId, taskCurrentStatus, taskNextStatus);
   }
     
 
   private moveCardToColumn(event: CdkDragDrop<ITask[]>) {
-    console.log(event)
     if(event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);}
       else{

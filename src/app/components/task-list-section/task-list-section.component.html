@@ -2,11 +2,15 @@
 @let doingTasks = (this._taskService.doingTasks | async) ?? [];
 @let doneTasks = (this._taskService.doneTasks | async) ?? [];
 
+<p>TODO: {{ todoTasks | json }}</p>
+<p>DOING: {{ doingTasks | json }}</p>
+<p>DONE: {{ doneTasks | json }}</p>
+
 <div class=" p-3 mb-6 flex overflow-auto">
 
     <div
     class=" flex-1 py-3 px-6 min-w-60 flex flex-col gap-6"
-    id="to-do-column"
+    id="todo-column"
     cdkDropList
     #todoListCdkDropList="cdkDropList"
     [cdkDropListData]="todoTasks"
@@ -40,7 +44,7 @@
         </div>
         <div class="flex flex-col gap-4">
             @for (doingTask of doingTasks; track doingTask.id) {
-                <app-task-card cdkDrag [cdkDragData]="doingTasks"/>
+                <app-task-card cdkDrag [cdkDragData]="doingTask"/>
             }
             
         </div>
