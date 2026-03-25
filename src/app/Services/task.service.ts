@@ -32,4 +32,8 @@ export class TaskService {
         const currentTasks = this.todoTasks$.value;
         this.todoTasks$.next([...currentTasks, newTask]);
     }
+
+    carregarListaAtualTodos() {
+        console.log('Lista atual de TODOS:', this.todoTasks$.value);
+    }
 }
