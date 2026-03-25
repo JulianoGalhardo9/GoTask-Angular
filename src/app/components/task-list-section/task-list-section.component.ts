@@ -3,33 +3,20 @@ import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskService } from '../../Services/task.service';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ITask } from '../../Interfaces/task.interface';
+import { A } from '@angular/cdk/keycodes';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-task-list-section',
-  imports: [TaskCardComponent, CdkDropList, CdkDrag],
+  imports: [TaskCardComponent, CdkDropList, CdkDrag, AsyncPipe],
   templateUrl: './task-list-section.component.html',
   styleUrl: './task-list-section.component.css'
 })
 export class TaskListSectionComponent {
-  todoTasks: ITask[] = [];
-  doingTasks: ITask[] = [];
-  doneTasks: ITask[] = [];
 
-  private readonly _taskService = inject(TaskService);
+  public readonly _taskService = inject(TaskService);
+todoTasks: unknown;
 
-  ngOnInit() {
-    this._taskService.todoTasks.subscribe((todoList) => {
-      this.todoTasks = todoList;
-    });
-
-    this._taskService.doingTasks.subscribe((doingList) => {
-      this.doingTasks = doingList;
-    });
-
-    this._taskService.doneTasks.subscribe((doneList) => {
-      this.doneTasks = doneList;
-    });
-  }
   drop(event: CdkDragDrop<ITask[]>) {
     if(event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);}
