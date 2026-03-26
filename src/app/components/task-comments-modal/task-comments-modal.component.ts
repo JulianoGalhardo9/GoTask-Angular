@@ -12,6 +12,7 @@ import { ITask } from '../../Interfaces/task.interface';
   styleUrl: './task-comments-modal.component.css'
 })
 export class TaskCommentsModalComponent {
+
   taskCommetsChenged = false;
   commentControl = new FormControl('', [Validators.required]);
 
@@ -34,6 +35,11 @@ export class TaskCommentsModalComponent {
     this.taskCommetsChenged = true;
 
     this.commentInputRef.nativeElement.focus();
+  }
+
+  onRemoveModal(commentId: string) {
+    this._task.comments = this._task.comments.filter((comment) => comment.id !== commentId);
+    this.taskCommetsChenged = true;
   }
 
   onCloseModal() {
