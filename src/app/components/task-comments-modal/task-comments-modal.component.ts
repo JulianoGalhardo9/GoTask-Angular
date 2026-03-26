@@ -1,5 +1,5 @@
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IComment } from '../../Interfaces/comment.interface';
 import { generateUniqueIdWithTimestamp } from '../../utils/generate-unique-id-with-timestamp';
@@ -14,6 +14,8 @@ import { ITask } from '../../Interfaces/task.interface';
 export class TaskCommentsModalComponent {
   taskCommetsChenged = false;
   commentControl = new FormControl('', [Validators.required]);
+
+  @ViewChild('commentInput') commentInputRef!: ElementRef<HTMLInputElement>;
 
   readonly _task: ITask = inject(DIALOG_DATA);
   readonly _dialogRef : DialogRef<boolean> = inject(DialogRef);
@@ -30,6 +32,8 @@ export class TaskCommentsModalComponent {
     this.commentControl.reset();
 
     this.taskCommetsChenged = true;
+
+    this.commentInputRef.nativeElement.focus();
   }
 
   onCloseModal() {
