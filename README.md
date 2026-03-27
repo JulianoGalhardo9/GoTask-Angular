@@ -1,4 +1,4 @@
-###🚀 GoTask — Gerenciador de Tarefas com Angular 19, RxJS & Angular Material
+### 🚀 GoTask — Gerenciador de Tarefas com Angular 19, RxJS & Angular Material
 
 ---
 
